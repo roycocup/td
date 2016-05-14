@@ -3,7 +3,8 @@ var Dim = {
   stage : {x: 600, y: 600},
   screen : {x: 600, y: 600},
 }
-Dim.game = {x:0, y:0, width:Dim.stage.x, heigth:(Dim.stage.y/12)*7};
+Dim.game = {x:0, y:0, w:Dim.stage.x, h:(Dim.stage.y/12)*7};
+Dim.menu = {x:-1, y:Dim.game.h, w:Dim.stage.x, h:Dim.stage.y};
 
 var total_cubes = 20*20;
 // var screen = {x: world_geom.maxX, y: world_geom.maxY};
@@ -14,21 +15,23 @@ init();
 
 function preload(){
   game.load.image('cube', 'assets/cube.png');
+  game.load.image('menu', 'assets/menu.png');
 };
 
 var cubes = [];
+var menu;
 function create(){
   game.physics.startSystem(Phaser.Physics.ARCADE);
+  menu = game.add.image(Dim.menu.x, Dim.menu.y, 'menu');
+  menu.width = menu.width + 1; // some problem with the menu missing a pixel... :(
   // createCubes();
 };
 
-function update() {}
+function update(){}
 
 function render() {
-  // var rect = new Phaser.Rectangle( 100, 100, 100, 100 ) ;
-  // game.debug.geom( rect, 'rgba(255,0,0,1)' ) ;
-  var rect = new Phaser.Rectangle(Dim.game.x, Dim.game.y, Dim.game.width, Dim.game.heigth);
-  game.debug.geom(rect, 'lightgreen' );
+
+  // game.debug.geom(new Phaser.Rectangle(Dim.game.x, Dim.game.y, Dim.game.w, Dim.game.h), 'lightgreen' );
 }
 
 
@@ -54,7 +57,7 @@ var createCubes = function(){
   var x = Dim.game.x, y = Dim.game.y;
   for (var i = 0; i < total_cubes-1; i++) {
     x += 20;
-    if (x >= Dim.game.width){
+    if (x >= Dim.game.w){
       x = 0;
       y += 20;
     }
