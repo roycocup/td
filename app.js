@@ -9,7 +9,7 @@ function init(){
 init();
 
 function preload(){
-  game.load.image('cube', 'cube.png');
+  game.load.image('cube', 'assets/cube.png');
 };
 
 var cubes = [];
@@ -36,7 +36,7 @@ var createRoads = function(){
 }
 
 
-var getCube(key){
+var getCube = function(key){
   for(i in cubes){
     if (cubes[i].key == key)
       return cube;
