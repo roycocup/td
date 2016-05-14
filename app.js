@@ -1,12 +1,9 @@
 var game;
 var Dim = {
   stage : {x: 600, y: 600},
-  game :  {x:0, y:0, width:400, heigth:400},
   screen : {x: 600, y: 600},
 }
-//centering the game on the stage
-Dim.game.x = (Dim.stage.x/6);
-
+Dim.game = {x:0, y:0, width:Dim.stage.x, heigth:(Dim.stage.y/12)*7};
 
 var total_cubes = 20*20;
 // var screen = {x: world_geom.maxX, y: world_geom.maxY};
