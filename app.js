@@ -1,10 +1,17 @@
 var game;
-var tdWoldBounds = {width:400, heigth:400}
-var screen = {x: 600, y: 600};
+var Dim = {
+  stage : {x: 600, y: 600},
+  game :  {x:0, y:0, width:400, heigth:400},
+  screen : {x: 600, y: 600},
+}
+//centering the game on the stage
+Dim.game.x = (Dim.stage.x/6);
+
+
 var total_cubes = 20*20;
 // var screen = {x: world_geom.maxX, y: world_geom.maxY};
 function init(){
-  game = new Phaser.Game(screen.x, screen.y, Phaser.AUTO, 'gamecanvas',{preload:preload,create:create,update:update,render:render});
+  game = new Phaser.Game(Dim.screen.x, Dim.screen.y, Phaser.AUTO, 'gamecanvas',{preload:preload,create:create,update:update,render:render});
 }
 init();
 
@@ -15,13 +22,16 @@ function preload(){
 var cubes = [];
 function create(){
   game.physics.startSystem(Phaser.Physics.ARCADE);
-  createCubes();
+  // createCubes();
 };
 
 function update() {}
 
 function render() {
-
+  // var rect = new Phaser.Rectangle( 100, 100, 100, 100 ) ;
+  // game.debug.geom( rect, 'rgba(255,0,0,1)' ) ;
+  var rect = new Phaser.Rectangle(Dim.game.x, Dim.game.y, Dim.game.width, Dim.game.heigth);
+  game.debug.geom(rect, 'lightgreen' );
 }
 
 
@@ -44,22 +54,13 @@ var getCube = function(key){
 }
 
 var createCubes = function(){
-  var x = 0, y = 0;
+  var x = Dim.game.x, y = Dim.game.y;
   for (var i = 0; i < total_cubes-1; i++) {
     x += 20;
-    if (x >= tdWoldBounds.width){
+    if (x >= Dim.game.width){
       x = 0;
       y += 20;
     }
     cubes.push(new Cube(x,y));
   }
-}
-
-var Cube = function(x,y){
-  var x = x;
-  var y = y;
-  var w = 10 ,h = 10;
-  this.sprite = game.add.sprite(x, y, 'cube');
-	this.sprite.anchor.set(1);
-  this.key = x+y;
 }
